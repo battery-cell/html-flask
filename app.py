@@ -1,17 +1,20 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
+# Function that will be triggered when the button is clicked
 def my_function():
-    print("okay bud")
+    print("Button was clicked!")  # Example of a Python function being triggered
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def home():
-    message = ""
-    if request.method == 'POST':
-        message = my_function()  # Call the Python function
-    if request.method == 'POST':
-        message = my_function()  # Call the Python function
-    return render_template('index.html', message=message)
+    return render_template('index.html')
+
+# Route that will be triggered when the button is clicked
+@app.route('/click', methods=['POST'])
+def button_clicked():
+    my_function()  # Call the Python function
+    return "Button clicked and function triggered!"
+
 if __name__ == '__main__':
     app.run(debug=True)
